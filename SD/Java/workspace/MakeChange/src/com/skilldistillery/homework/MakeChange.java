@@ -4,77 +4,79 @@ import java.util.Scanner;
 
 public class MakeChange {
 	public static void main(String[] args) {
-		
-		Scanner keyboard = new Scanner(System.in);
-		System.out.println(makeChange(45, 99)); // 45,99 should be 54
-//		System.out.println(makeChange(tallyPayment(keyboard));
 
+		Scanner keyboard = new Scanner(System.in);
+
+		System.out.println("Hello. I will calculate change based on price and payment.");
+		calculation(keyboard);
 		keyboard.close();
 
 	}
 
-	// Method to calculate change and print total. Potentially, return string. (Two
-	// Double Parameters)
-	// need while loop and if statements for:
-	// Twenty, Ten, Five, One --- Dollars/
-	// Quarter, Dime, Nickel, Penny --- Coins
-
 	public static String makeChange(double total, double payment) {
 		String change = "";
-		int twentyD, tenD, fiveD, oneD;
-//		int quarters, dimes, nickels, pennies;
-		double changeToGive = payment - total;
-		int dollarsToGive = (int)changeToGive;
-		double centsToGive = (changeToGive - dollarsToGive) * 100;
 
-		while (dollarsToGive > 0) {
-			
-			if (dollarsToGive >= 20) {
-				twentyD = (int) dollarsToGive / 20;
-				dollarsToGive -= (twentyD * 20);
-				change += ("\n$20: " + twentyD);
-				System.out.println(change);
-				
-			} else if (dollarsToGive >= 10) {
-				tenD = (int) dollarsToGive / 10;
-				dollarsToGive -= (tenD * 10);
-				change += ("\n$10: " + tenD);
-				System.out.println(change);
-				
-			} else if (dollarsToGive >= 5) {
-				fiveD = (int) dollarsToGive / 5;
-				dollarsToGive -= (fiveD * 5);
-				change += ("\n$5: " + fiveD);
-				System.out.println(change);
-				
-			} else if (dollarsToGive >= 1) {
-				oneD = (int)dollarsToGive / 1;
-				dollarsToGive -= (oneD * 1);
-				change += ("\n$1: " + oneD);
-				System.out.println(change);
-				
-//			} if (changeToGive > 0 && changeToGive < 1) {
-//				centsToGive = (int)(changeToGive * 100);
-//				System.out.println(centsToGive);
-//				changeToGive = 0;
+		double changeToGive = (payment * 100 - total * 100);
+		if (changeToGive < 0) {
+			return "EEROR: Payment not sufficient.";
+		} else {
+			System.out.println("Total Change to Receive: $" + (changeToGive / 100));
+			while (changeToGive > 0) {
+
+				if (changeToGive >= 2000) {
+					change += ("\n$20: " + ((int) changeToGive / 2000));
+					changeToGive %= 2000;
+
+				} else if (changeToGive >= 1000) {
+					change += ("\n$10: " + ((int) changeToGive / 1000));
+					changeToGive %= 1000;
+
+				} else if (changeToGive >= 500) {
+					change += ("\n$5: " + ((int) changeToGive / 500));
+					changeToGive %= 500;
+
+				} else if (changeToGive >= 100) {
+					change += ("\n$1: " + ((int) changeToGive / 100));
+					changeToGive %= 100;
+
+				} else if (changeToGive >= 25) {
+					change += ("\nQuarters: " + ((int) changeToGive / 25));
+					changeToGive %= 25;
+
+				} else if (changeToGive >= 10) {
+					change += ("\nDimes: " + ((int) changeToGive / 10));
+					changeToGive %= 10;
+
+				} else if (changeToGive >= 5) {
+					change += ("\nNickels: " + ((int) changeToGive / 5));
+					changeToGive %= 5;
+
+				} else if (changeToGive >= 1) {
+					change += ("\nPennies: " + ((int) changeToGive / 1));
+					changeToGive %= 1;
+
+				}
+
 			}
-//			while (centsToGive > 0) {
-//				
-//			}
 		}
 
 		return change;
 	}
-	// Method to ask for payment (keyboard parameter) - call calculate method, pass
-	// two parameters.
 
-	public static double tallyPayment(Scanner keyboard) {
-		double value = keyboard.nextDouble();
-		return value;
-		
-
-		
-
+	public static void calculation(Scanner keyboard) {
+		String contOrQuit = "";
+		do {
+			System.out.print("\nHow much does it cost?    $");
+			double total = keyboard.nextDouble();
+			System.out.print("How much are you paying?  $");
+			double payment = keyboard.nextDouble();
+			System.out.println(makeChange(total, payment));
+			System.out.println("\nWould you like to calculate another item? ");
+			System.out.print("If no, please enter 'quit': ");
+			contOrQuit = keyboard.next();
+														//Condition will only check for quit
+		} while (!contOrQuit.equalsIgnoreCase("quit")); //Other responses will continue the code
+		System.out.println("\nThank you! Goodbye!");	
 	}
 
 }
