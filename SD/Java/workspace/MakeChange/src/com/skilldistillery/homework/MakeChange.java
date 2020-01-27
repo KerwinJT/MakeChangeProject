@@ -8,6 +8,7 @@ public class MakeChange {
 		Scanner keyboard = new Scanner(System.in);
 
 		System.out.println("Hello. I will calculate change based on price and payment.");
+		System.out.println("Values passed the second decimal place will be ignored.");
 		calculation(keyboard);
 		keyboard.close();
 
@@ -16,7 +17,7 @@ public class MakeChange {
 	public static String makeChange(double total, double payment) {
 		String change = "";
 
-		double changeToGive = (payment * 100 - total * 100);
+		double changeToGive = (int)(payment * 100 - total * 100); //Drops values past second decimal place
 		if (changeToGive < 0) {
 			return "EEROR: Payment not sufficient.";
 		} else {
@@ -72,10 +73,18 @@ public class MakeChange {
 			double payment = keyboard.nextDouble();
 			System.out.println(makeChange(total, payment));
 			System.out.println("\nWould you like to calculate another item? ");
-			System.out.print("If no, please enter 'quit': ");
-			contOrQuit = keyboard.next();
+			System.out.print("Yes or No: ");
+			
+			do {
+				contOrQuit = keyboard.next();
+				if (!contOrQuit.equalsIgnoreCase("yes") && (!contOrQuit.equalsIgnoreCase("no"))){
+					System.out.print("Please, respond with \"yes\" or \"no\": ");
+					
+				}
+			} while (!contOrQuit.equalsIgnoreCase("yes") && (!contOrQuit.equalsIgnoreCase("no"))); 
+		
 														//Condition will only check for quit
-		} while (!contOrQuit.equalsIgnoreCase("quit")); //Other responses will continue the code
+		} while (!contOrQuit.equalsIgnoreCase("no")); //Other responses will continue the code
 		System.out.println("\nThank you! Goodbye!");	
 	}
 
