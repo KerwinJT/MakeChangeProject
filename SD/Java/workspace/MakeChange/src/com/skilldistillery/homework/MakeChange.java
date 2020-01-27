@@ -8,7 +8,7 @@ public class MakeChange {
 		Scanner keyboard = new Scanner(System.in);
 
 		System.out.println("Hello. I will calculate change based on price and payment.");
-		System.out.println("Values passed the second decimal place will be ignored.");
+		System.out.println("Values past the second decimal place will be ignored.");
 		calculation(keyboard);
 		keyboard.close();
 
